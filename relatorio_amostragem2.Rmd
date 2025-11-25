@@ -26,6 +26,7 @@ Contexto fictício elaborado pelo grupo:
 O objetivo do estudo é estimar o número de desbloqueios médio dos alunos de estatística da UFRGS através de amostragem sistemática. 
 
 # Métodos
+O método de seleção probabilística adotado foi a Amostragem Sistemática. Esse método garante uma cobertura uniforme da lista de matriculados, selecionando os elementos da população a partir de um intervalo fixo após um ponto de partida aleatório.
 
 ## População alvo
 Todos os alunos de graduação do curso de Estatística da UFRGS.
@@ -34,14 +35,17 @@ Todos os alunos de graduação do curso de Estatística da UFRGS.
 Todos os alunos de graduação com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
 
 ## Unidade elementar 
+Alunos de graduação do curso de Estatística da UFRGS.
 
 ## Unidade amostral
+Alunos com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
 
 ## Sistema de referência
+Listagem do ordenamento de alunos de graduação com matrícula ativa no curso de Estatística no semestre 2025/2, fornecida pelo sistema da UFRGS.
 
 ## Forma de coleta dos dados
 Os dados foram coletados através de um questionário elaborado no _Google Forms_. 
-Disponível no link: ??? 
+Disponível no link: [Questionário](https://docs.google.com/forms/d/e/1FAIpQLSfSgwg34E4EKTYMcROBcxuCsBTT98t38AKhpYknYZiqZrdWFg/viewform?usp=header) 
 
 Ao final deste documento também especificamos como ficou o questionário caso tenha algum problema com o link externo. 
 
