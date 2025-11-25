@@ -1,0 +1,82 @@
+---
+title: "Seminário 1 - Amostragem 2"
+author: "Grupo 7: Amostragem Sistemática - Média"
+date: "`r Sys.Date()`"
+output: 
+  pdf_document: 
+    toc: TRUE  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE)
+```
+
+# Motivação 
+
+Contexto fictício elaborado pelo grupo: 
+
+**Solicitante:** Diretório acadêmico da Estatística.
+
+**Necessidade: ** O diretório está elaborando um relatório sobre a saúde digital e o bem-estar dos estudantes do curso de estatística. Uma das métricas de interesse é a "distração por smartphone", que pode impactar nos estudos, saúde mental e de maneira mais geral na qualidade de vida do estudante. Para avaliar essa questão, o número de desbloqueios de tela foi uma variável escolhida.
+
+**Questão de Pesquisa:** "Qual o número médio de desbloqueios de tela de celular por dia entre os alunos de graduação em Estatística da universidade?"
+
+# Objetivos
+
+O objetivo do estudo é estimar o número de desbloqueios médio dos alunos de estatística da UFRGS através de amostragem sistemática. 
+
+# Métodos
+
+## População alvo
+Todos os alunos de graduação do curso de Estatística da UFRGS.
+
+## População de pesquisa
+Todos os alunos de graduação com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
+
+## Unidade elementar 
+
+## Unidade amostral
+
+## Sistema de referência
+
+## Forma de coleta dos dados
+Os dados foram coletados através de um questionário elaborado no _Google Forms_. 
+Disponível no link: ??? 
+
+Ao final deste documento também especificamos como ficou o questionário caso tenha algum problema com o link externo. 
+
+O link do questionário foi enviado para os alunos sorteados através do _whatsapp_. 
+
+## Característica de interesse e parâmetro
+Número médio de desbloqueios de tela do smartphone por dia dos alunos de graduação na estatística.
+
+## Plano amostral e sua implementação
+O plano amostral aplicado foi a amostragem sistemática. Os alunos foram organizados em uma lista com base no ordenamento do curso de estatística no semestre 2025/02, disponível no portal do aluno da UFRGS.
+
+A implementação se deu por sorteio realizado no _R_, cujo o código está disponível ao final deste documento. Pós sorteio o grupo foi responsável por contatar os alunos sorteados para enviar o questionário. 
+
+## Estimador
+## Inferência (estimação ou teste)
+## Nível de confiança ou significância (!= 95%)
+## Software Utilizado
+Todas as análises e códigos disponíveis foram executados em R, tendo como referência a versão mais recente disponível na plataforma PositCloud (4.5.1). 
+
+# Resultados
+# Sugestão tamanho de amostra
+# Considerações finais
+
+## Limitações
+
+### Erros não amostrais a se considerar: 
+
+- **Erro de entendimento:** Houve a tentativa do grupo de amenizar esse fator disponibilizando no início do questionário um tutorial que possibilitasse direcionar corretamente o respondente.
+
+- **Erro de mensuração:** Aqui considera-se "chutes" e omissões por parte dos respondentes.
+
+
+# Códigos
+
+# Apêndices
+
+Segue o questionário elaborado pelo grupo e disponível aos estudantes: 
+
