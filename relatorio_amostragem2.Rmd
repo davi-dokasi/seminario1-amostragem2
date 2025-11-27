@@ -129,11 +129,12 @@ As estatísticas descritivas resumidas são:
 - Erro Padrão: 6,8  $\approx$ **7 ativações/dia.**
 
 # Sugestão tamanho de amostra
+
 # Considerações finais
 
 ## Limitações
 
-- **Taxa de não resposta**: O planejamento amostral original previa a seleção sistemática de 40 estudantes. Com a obtenção de apenas 21 respostas válidas, houve uma perda amostral de 47,5%.
+- **Taxa de não resposta**: Apesar de considerarmos o plano amostral com $n_1 = 20$ inicialmente, fizemos o sorteio com $n_2 = 40$, conforme já mencionado. Considerando apenas esse $n_2$ obtivemos uma taxa de não resposta de 47,5%.
 
 ### Erros não amostrais a se considerar:
 
@@ -194,10 +195,50 @@ cat("Intervalo de Confiança [90%]: [", round(ic_inferior, 2), ";", round(ic_sup
 
 # Apêndices
 
+## Sorteio
+
+Segue o sorteio realizado a partir do ordenamento do curso de estatística no semestre 2025/2:
+
+Importando ordenamento 2025/02, disponível no [portal de serviços](https://www1.ufrgs.br/sistemas/portal/login) da universidade:
+
+```{r}
+ord <- read.csv('data/ordenamento_2025.csv', sep = ',')
+```
+
+**Definindo parâmetros da amostragem sistemática;**
+
+Inicialmente escolhemos um $n$ arbitrário = 20. Portanto, para seleção da amostra, conforme foi recomendado em aula aumentamos o $n$ para nos previnirmos de uma taxa de resposta baixa.
+
+```{r}
+# Tamanho da população ---
+N <- nrow(ord)
+
+# Tamanho da amostra ---
+n <- 40
+
+# Intervalo de seleção ---
+k <- floor(N/n)
+```
+
+**Sorteando os registros:**
+
+```{r}
+
+set.seed(42)
+s <- sample(1:k, 1)
+
+ind     <- seq(from = s, to = N, by = k)
+amostra <- ord[ind, c(2,3)]
+amostra
+```
+
+Essa é a lista de pessoas a serem contatadas para reponder o forms.
+
+O número de alunos selecionados foi um pouco maior que 40 pelo arredondamento em `k <- floor(N/n)`.
+
 ## Questionário
 
 Segue o questionário elaborado pelo grupo e disponibilizado aos estudantes sorteados:
-
 
 ### Ativações de Tela por Alunos de Estatística do Semestre 2025/2
 
