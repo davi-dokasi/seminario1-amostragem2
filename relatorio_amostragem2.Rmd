@@ -1,13 +1,36 @@
 ---
-title: "Seminário 1 - Amostragem 2"
-author: "Grupo 7: Amostragem Sistemática - Média"
-date: "`r Sys.Date()`"
 output:
   pdf_document:
-    toc: TRUE
-    toc_depth: 2
-    fig_width: 4
+    number_sections: true
+    toc: false
+mainfont: Arial
+fontsize: 12pt
+geometry: margin=1in
 ---
+
+\begin{titlepage}
+    \centering
+    {\Large \textbf{Universidade Federal do Rio Grande do Sul}} \\
+    \vspace{0.5cm}
+    {\Large MAT02036 - Amostragem 2}
+    \vspace*{5cm}
+
+    {\Huge Seminário 1 - Relatório} \\
+    \vspace{1cm}
+    {\Huge \textbf{Ativações de Tela por Alunos da Estatística}} \\
+    \vspace{2cm}
+    {\Large Grupo 7: Amostragem Sistemática - Média}
+
+    \vfill
+
+    \textbf{Autores:} Davi Augusto, Gabriel Netto e João Arend \\
+    \textbf{Data:} `r format(Sys.Date(), "%d de %b de %Y")`
+
+    \vspace{2cm}
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE)
@@ -19,9 +42,9 @@ Contexto fictício elaborado pelo grupo:
 
 **Solicitante:** Diretório acadêmico da Estatística.
 
-**Necessidade: ** O diretório está elaborando um relatório sobre a saúde digital e o bem-estar dos estudantes do curso de estatística. Uma das métricas de interesse é a "distração por smartphone", que pode impactar nos estudos, saúde mental e de maneira mais geral na qualidade de vida do estudante. Para avaliar essa questão, o número de desbloqueios de tela foi uma variável escolhida.
+**Necessidade:** O diretório está elaborando um relatório sobre a saúde digital e o bem-estar dos estudantes do curso de estatística. Uma das métricas de interesse é a "distração por smartphone", que pode impactar nos estudos, saúde mental e de maneira mais geral na qualidade de vida do estudante. Para avaliar essa questão, o número de desbloqueios de tela foi uma variável escolhida.
 
-**Questão de Pesquisa:** "Qual o número médio de desbloqueios de tela de celular por dia entre os alunos de graduação em Estatística da universidade?"
+**Questão de Pesquisa:** "Qual o número médio de desbloqueios de tela de celular por dia entre os alunos de graduação em Estatística da UFRGS?"
 
 # Objetivos
 
@@ -37,13 +60,13 @@ Todos os alunos de graduação do curso de Estatística da UFRGS.
 Todos os alunos de graduação com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
 
 ## Unidade elementar
-Alunos de graduação do curso de Estatística da UFRGS.
+Aluno de graduação do curso de Estatística da UFRGS.
 
 ## Unidade amostral
-Alunos com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
+Aluno com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
 
 ## Sistema de referência
-Listagem do ordenamento de alunos de graduação com matrícula ativa no curso de Estatística no semestre 2025/2, fornecida pelo sistema da UFRGS.
+O ordenamento de alunos de graduação com matrícula ativa no curso de Estatística no semestre 2025/2. Essa lista é fornecida pela própria UFRGS a qualquer discente através do Portal do Aluno.
 
 ## Forma de coleta dos dados
 Os dados foram coletados através de um questionário elaborado no _Google Forms_.
@@ -57,7 +80,7 @@ O link do questionário foi enviado para os alunos sorteados através do _whatsa
 Número médio de desbloqueios de tela do smartphone por dia dos alunos de graduação na estatística.
 
 ## Plano amostral e sua implementação
-O plano amostral aplicado foi a amostragem sistemática. Os alunos foram organizados em uma lista com base no ordenamento do curso de estatística no semestre 2025/02, disponível no portal do aluno da UFRGS.
+O plano amostral aplicado foi a amostragem sistemática. Os alunos foram organizados em uma lista com base no ordenamento do curso de estatística no semestre 2025/02.
 
 A implementação se deu por sorteio realizado no _R_, cujo o código está disponível ao final deste documento. Pós sorteio o grupo foi responsável por contatar os alunos sorteados para enviar o questionário.
 
