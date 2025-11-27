@@ -2,18 +2,20 @@
 title: "Seminário 1 - Amostragem 2"
 author: "Grupo 7: Amostragem Sistemática - Média"
 date: "`r Sys.Date()`"
-output: 
-  pdf_document: 
-    toc: TRUE  
+output:
+  pdf_document:
+    toc: TRUE
+    toc_depth: 2
+    fig_width: 4
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warnings = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE)
 ```
 
-# Motivação 
+# Motivação
 
-Contexto fictício elaborado pelo grupo: 
+Contexto fictício elaborado pelo grupo:
 
 **Solicitante:** Diretório acadêmico da Estatística.
 
@@ -23,7 +25,7 @@ Contexto fictício elaborado pelo grupo:
 
 # Objetivos
 
-O objetivo do estudo é estimar o número de desbloqueios médio dos alunos de estatística da UFRGS através de amostragem sistemática. 
+O objetivo do estudo é estimar o número de desbloqueios médio dos alunos de estatística da UFRGS através de amostragem sistemática.
 
 # Métodos
 O método de seleção probabilística adotado foi a Amostragem Sistemática. Esse método garante uma cobertura uniforme da lista de matriculados, selecionando os elementos da população a partir de um intervalo fixo após um ponto de partida aleatório.
@@ -34,7 +36,7 @@ Todos os alunos de graduação do curso de Estatística da UFRGS.
 ## População de pesquisa
 Todos os alunos de graduação com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
 
-## Unidade elementar 
+## Unidade elementar
 Alunos de graduação do curso de Estatística da UFRGS.
 
 ## Unidade amostral
@@ -44,12 +46,12 @@ Alunos com matrícula ativa no curso de Estatística no semestre letivo 2025/2.
 Listagem do ordenamento de alunos de graduação com matrícula ativa no curso de Estatística no semestre 2025/2, fornecida pelo sistema da UFRGS.
 
 ## Forma de coleta dos dados
-Os dados foram coletados através de um questionário elaborado no _Google Forms_. 
-Disponível no link: [Questionário](https://docs.google.com/forms/d/e/1FAIpQLSfSgwg34E4EKTYMcROBcxuCsBTT98t38AKhpYknYZiqZrdWFg/viewform?usp=header) 
+Os dados foram coletados através de um questionário elaborado no _Google Forms_.
+Disponível no link: [Questionário](https://docs.google.com/forms/d/e/1FAIpQLSfSgwg34E4EKTYMcROBcxuCsBTT98t38AKhpYknYZiqZrdWFg/viewform?usp=header)
 
-Ao final deste documento também especificamos como ficou o questionário caso tenha algum problema com o link externo. 
+Ao final deste documento também especificamos como ficou o questionário caso tenha algum problema com o link externo.
 
-O link do questionário foi enviado para os alunos sorteados através do _whatsapp_. 
+O link do questionário foi enviado para os alunos sorteados através do _whatsapp_.
 
 ## Característica de interesse e parâmetro
 Número médio de desbloqueios de tela do smartphone por dia dos alunos de graduação na estatística.
@@ -57,18 +59,18 @@ Número médio de desbloqueios de tela do smartphone por dia dos alunos de gradu
 ## Plano amostral e sua implementação
 O plano amostral aplicado foi a amostragem sistemática. Os alunos foram organizados em uma lista com base no ordenamento do curso de estatística no semestre 2025/02, disponível no portal do aluno da UFRGS.
 
-A implementação se deu por sorteio realizado no _R_, cujo o código está disponível ao final deste documento. Pós sorteio o grupo foi responsável por contatar os alunos sorteados para enviar o questionário. 
+A implementação se deu por sorteio realizado no _R_, cujo o código está disponível ao final deste documento. Pós sorteio o grupo foi responsável por contatar os alunos sorteados para enviar o questionário.
 
 ## Estimador
 
 #### **Estimador Pontual da Média**
-A média populacional ($\bar{Y}$) foi estimada através da média amostral simples ($\bar{y}$), calculada sobre o conjunto de respondentes efetivos: $$\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$$ 
+A média populacional ($\bar{Y}$) foi estimada através da média amostral simples ($\bar{y}$), calculada sobre o conjunto de respondentes efetivos: $$\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$$
 
 - Onde: $y_i$: Valor observado (número de desbloqueios) para o $i$-ésimo aluno;
 - $n$: Tamanho da amostra efetiva (número de respondentes, $n=21$).
 
 #### **Estimador Pontual da Variância da Média**
-Para mensurar a precisão da estimativa e construir o Intervalo de Confiança, utilizou-se o estimador da variância da Amostragem Aleatória Simples (AAS) sem reposição, ajustado para população finita: $$\widehat{Var}(\bar{y}) = \left( 1 - \frac{n}{N} \right) \frac{s^2}{n}$$ 
+Para mensurar a precisão da estimativa e construir o Intervalo de Confiança, utilizou-se o estimador da variância da Amostragem Aleatória Simples (AAS) sem reposição, ajustado para população finita: $$\widehat{Var}(\bar{y}) = \left( 1 - \frac{n}{N} \right) \frac{s^2}{n}$$
 
 - Onde:$s^2$: Variância amostral dos dados coletados ($n=21$);
 - $N$: Tamanho total da população ($N=189$);
@@ -82,14 +84,14 @@ Dessa forma, os resultados serão apresentados através de um Intervalo de Confi
 
 A construção do intervalo baseia-se na distribuição $t$ de Student, adequada para o tamanho de amostra obtido ($n=21 < 30$) e para situações onde a variância populacional é desconhecida.
 
-## Nível de confiança ou significância (!= 90%)
+## Nível de confiança ou significância (!= 95%)
 
 Para a construção do intervalo, definiu-se um Nível de Confiança de 90% ($1 - \alpha = 0,90$).
 
 Estamos utilizando esse nivel de confiança pois a variável "número de desbloqueios" possui natureza comportamental e assim pode apresentar uma variabilidade maior. Dessa forma, o grupo optou por um nível de confiança um pouco menor para obter um intervalo mais estreito, facilitando a interpretação dos resultados.
 
 ## Software Utilizado
-Todas as análises e códigos disponíveis foram executados em R, tendo como referência a versão mais recente disponível na plataforma PositCloud (4.5.1). 
+Todas as análises e códigos disponíveis foram executados em R, tendo como referência a versão mais recente disponível na plataforma PositCloud (4.5.1).
 
 # Resultados
 
@@ -97,7 +99,7 @@ A análise dos dados foi realizada com base nas respostas válidas de $n=21$ est
 
 Explorando o comportamento da variável de interesse, o número de desbloqueios de tela por dia dentro de nossa amostra, observamos que os dados tem uma grande amplitude entre os estudantes, variando de no minimo 28 para no máximo 131.
 
-As estatísticas descritivas resumidas são: 
+As estatísticas descritivas resumidas são:
 
 - Média Amostral ($\bar{y}$): 84,90 $\approx$ **85 ativações/dia.**
 - Desvio Padrão ($s$): 33,23 $\approx$ **33 ativações/dia.**
@@ -110,7 +112,7 @@ As estatísticas descritivas resumidas são:
 
 - **Taxa de não resposta**: O planejamento amostral original previa a seleção sistemática de 40 estudantes. Com a obtenção de apenas 21 respostas válidas, houve uma perda amostral de 47,5%.
 
-### Erros não amostrais a se considerar: 
+### Erros não amostrais a se considerar:
 
 - **Erro de entendimento:** Houve a tentativa do grupo de amenizar esse fator disponibilizando no início do questionário um tutorial que possibilitasse direcionar corretamente o respondente.
 
@@ -124,9 +126,9 @@ library(dplyr)
 library(readr)
 library(readxl)
 
-df <- read_xlsx("data/Ativações de Tela por Alunos do Semestre 2025_2 (respostas).xlsx")
+df <- read_xlsx("data/respostas.xlsx")
 
-colnames(df) <- c("data/hora", "ativacoes", "percepcao")
+colnames(df) <- c("ativacoes", "percepcao")
 
 head(df)
 
@@ -144,10 +146,10 @@ resumo_descritivo <- df %>%
   )
 print(resumo_descritivo)
 
-# Estimador da Média 
+# Estimador da Média
 media_amostral <- mean(df$ativacoes) ; media_amostral
 
-# Estimador da Variância da Média 
+# Estimador da Variância da Média
 # Var(y_bar) = (1 - n/N) * (s^2 / n)
 var_estimador_media <- (1 - n/N) * ((var(df$ativacoes)) / n) ; var_estimador_media
 
@@ -169,5 +171,63 @@ cat("Intervalo de Confiança [90%]: [", round(ic_inferior, 2), ";", round(ic_sup
 
 # Apêndices
 
-Segue o questionário elaborado pelo grupo e disponível aos estudantes: 
+## Questionário
+
+Segue o questionário elaborado pelo grupo e disponibilizado aos estudantes sorteados:
+
+
+### Ativações de Tela por Alunos de Estatística do Semestre 2025/2
+
+Este formulário faz parte de um trabalho da disciplina de Amostragem 2 da UFRGS do grupo composto pela Davi Augusto F. da Silva, Gabriel Netto e João Vitor Arend.
+
+Estamos conduzindo um estudo focado no bem-estar digital dos estudantes. Nosso objetivo principal é estimar o "número médio de desbloqueios de tela de celular por dia", e sua ajuda é fundamental.
+Para selecionar os participantes, utilizamos um método de Amostragem Sistemática, e você foi um dos sorteados!
+
+Pedimos que siga as instruções abaixo para responder. É rápido (menos de 2 minutos) e sua resposta é totalmente anônima, sendo crucial para o sucesso da nossa análise.
+
+A participação é voluntária, anônima e todas as informações fornecidas serão tratadas com sigilo, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD) e as diretrizes da UFRGS disponíveis em: https://www.ufrgs.br/proprivacidade/.
+
+### Tutorial
+
+**Como acessar essa informação (Android):**
+
+1)  Abra as “Configurações” role para baixo e toque no menu de “Bem-estar digital e controles parentais”
+
+2)  Uma tela com seus dados de uso preliminares será mostrada. Toque sobre a barra para acessar mais informações. (Toque no ícone de gráfico no topo da tela para ver o resumo de uso da última semana.)
+
+```{r, echo=FALSE, out.width="65%", fig.align = "center"}
+knitr::include_graphics("images/and1.png")
+```
+
+3)  Na nova tela, arraste para baixo para observar o seu número de ativações/desbloqueios de tela no dia.
+
+```{r, echo=FALSE, out.width="65%", fig.align = "center"}
+knitr::include_graphics("images/and2.png")
+```
+
+**Como acessar informação (IOS)**
+
+1) Abra o aplicativo Ajustes no seu iPhone.Role para baixo e toque em Tempo de Uso. (Se for a primeira vez que você acessa, talvez precise tocar em Ativar Tempo de Uso.)
+
+2) Na tela principal do Tempo de Uso, para um relatório mais detalhado, toque em Ver Todas as Atividades.
+
+```{r, echo=FALSE, out.width="65%", fig.align = "center"}
+knitr::include_graphics("images/ios1.png")
+```
+
+
+3)  Na nova tela, arraste para baixo para observar o seu número de ativações/desbloqueios de tela no dia.
+
+```{r, echo=FALSE, out.width="65%", fig.align = "center"}
+knitr::include_graphics("images/ios2.png")
+```
+
+### Perguntas
+
+1. Quantas ativações você teve no dia de ontem? **(Coloque apenas o número)**
+
+2. Você considera esse número de desbloqueios/ativações alto?
+
+![](images/likert.png)
+
 
