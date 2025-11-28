@@ -86,18 +86,29 @@ A implementação se deu por sorteio realizado no _R_, cujo o código está disp
 
 ## Estimador
 
-#### **Estimador Pontual da Média**
-A média populacional ($\bar{Y}$) foi estimada através da média amostral simples ($\bar{y}$), calculada sobre o conjunto de respondentes efetivos: $$\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$$
+### Estimador Pontual da Média
 
-- Onde: $y_i$: Valor observado (número de desbloqueios) para o $i$-ésimo aluno;
+A média populacional ($\bar{Y}$) foi estimada através da média amostral simples ($\bar{y}$), calculada sobre o conjunto de respondentes efetivos:
+
+$$\hat{\bar{Y}}_{AS} = \bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$$
+
+Onde:
+
+- $y_i$: Valor observado (número de desbloqueios) para o $i$-ésimo aluno;
 - $n$: Tamanho da amostra efetiva (número de respondentes, $n=21$).
 
-#### **Estimador Pontual da Variância da Média**
-Para mensurar a precisão da estimativa e construir o Intervalo de Confiança, utilizou-se o estimador da variância da Amostragem Aleatória Simples (AAS) sem reposição, ajustado para população finita: $$\widehat{Var}(\bar{y}) = \left( 1 - \frac{n}{N} \right) \frac{s^2}{n}$$
+### Estimador Pontual da Variância da Média
 
-- Onde:$s^2$: Variância amostral dos dados coletados ($n=21$);
-- $N$: Tamanho total da população ($N=189$);
+Para mensurar a precisão da estimativa e construir o Intervalo de Confiança, utilizou-se o estimador da variância da Amostragem Aleatória Simples (AAS) sem reposição, ajustado para população finita:
+
+$$\hat{V}(\bar{y}_{AS}) \approx \left( 1 - \frac{n}{N} \right) \frac{s^2}{n}$$
+
+Onde:
+
+- $s^2$: Variância amostral dos dados coletados ($n=21$);
 - $\left( 1 - \frac{n}{N} \right)$: Fator de correção para populações finitas (fpc).
+
+Ps: Assume-se que o ordenamento não apresenta correlação com nossa variável de interesse, permitindo o uso da fórmula da variância da AAS como aproximação conservadora.
 
 ## Inferência (estimação ou teste)
 
@@ -105,30 +116,138 @@ A abordagem inferencial adotada neste estudo é a Estimação por Intervalo. Con
 
 Dessa forma, os resultados serão apresentados através de um Intervalo de Confiança (IC). Esta técnica permite fornecer um conjunto de valores plausíveis para a média de desbloqueios de toda a graduação em Estatística, considerando a variabilidade observada na amostra e o erro amostral inerente ao processo.
 
-A construção do intervalo baseia-se na distribuição $t$ de Student, adequada para o tamanho de amostra obtido ($n=21 < 30$) e para situações onde a variância populacional é desconhecida.
+A construção do intervalo baseia-se na distribuição $t$ de Student, adequada para o tamanho de amostra obtido e para situações onde a variância populacional é desconhecida.
 
-## Nível de confiança ou significância (!= 95%)
-
+## Nível de confiança ou significância
 Para a construção do intervalo, definiu-se um Nível de Confiança de 90% ($1 - \alpha = 0,90$).
-
-Estamos utilizando esse nivel de confiança pois a variável "número de desbloqueios" possui natureza comportamental e assim pode apresentar uma variabilidade maior. Dessa forma, o grupo optou por um nível de confiança um pouco menor para obter um intervalo mais estreito, facilitando a interpretação dos resultados.
 
 ## Software Utilizado
 Todas as análises e códigos disponíveis foram executados em R, tendo como referência a versão mais recente disponível na plataforma PositCloud (4.5.1).
 
 # Resultados
 
-A análise dos dados foi realizada com base nas respostas válidas de $n=21$ estudantes, a partir de uma população total de $N=189$ alunos matriculados.
+A análise dos dados foi realizada com base nas respostas válidas de $n=21$ estudantes, a partir de uma população total de $N=192$ alunos matriculados.
+
+Seguem as seguintes estatísticas descritivas relativas a resposta dos estudantes sobre o número de desbloqueios de tela no dia anterior:
+
+## Tabela Descritiva
+```{r}
+library(dplyr)
+library(readr)
+library(readxl)
+library(knitr)
+
+df <- read_xlsx("data/respostas.xlsx")
+
+colnames(df) <- c("ativacoes", "percepcao")
+
+n <- nrow(df)
+N <- 192
+
+resumo_descritivo <- df %>%
+  summarise(
+    Media        = mean(ativacoes),
+    DesvioPadrao = sd(ativacoes),
+    Variancia    = var(ativacoes),
+    Minimo       = min(ativacoes),
+    Maximo       = max(ativacoes),
+    n            = n()
+  )
+
+kable(resumo_descritivo, booktabs = TRUE , row.names = FALSE)
+```
+
+## Histograma
+
+```{r}
+library(ggplot2)
+
+ggplot(df, aes(x = ativacoes)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 15, fill = "#69b3a2", color = "white") +
+  geom_density(alpha = 0.2, fill = "#FF6666") +
+  labs(
+    title = "Distribuição de Desbloqueios de Tela",
+    x = "Número de Desbloqueios Diários",
+    y = "Densidade"
+  ) +
+  theme_minimal() +
+  geom_vline(aes(xintercept = mean(ativacoes)), color="blue", linetype="dashed", linewidth=1)
+```
+
+A linha azul representa a média.
+
+## Estimadores
+
+Encontrando os **estimadores** mecionados anteriormente:
+
+```{r}
+bar_y <- sum(df$ativacoes) / n
+```
+
+$\hat{\bar{Y}}_{AS} =$ `r bar_y`
+
+```{r}
+# Var(bar_y) = (1 - n/N) * (s^2 / n)
+var_bar_y <- (1 - n/N) * ((var(df$ativacoes)) / n)
+```
+
+$\hat{V}(\bar{y}_{sy}) \approx$ `r round(var_bar_y, 4)`
+
+## Intervalo de Confiança ($\alpha = 0,10$)
+
+```{r}
+
+erro_padrao <- sqrt(var_bar_y)
+
+# Intervalo de Confiança (90%)
+# Usando t-student com n-1 graus de liberdade
+alpha <- 0.10
+t_critico <- qt(1 - alpha/2, df = n - 1)
+
+margem_erro <- t_critico * erro_padrao
+ic_inferior <- bar_y - margem_erro
+ic_superior <- bar_y + margem_erro
+```
+
+Portando temos uma **_margem de erro_** de `r margem_erro`.
+
+Chegado em um **_intervalo de confiança_**:
+
+IC = [`r round(ic_inferior, 2)`; `r round(ic_superior, 2)`].
 
 Explorando o comportamento da variável de interesse, o número de desbloqueios de tela por dia dentro de nossa amostra, observamos que os dados tem uma grande amplitude entre os estudantes, variando de no minimo 28 para no máximo 131.
 
-As estatísticas descritivas resumidas são:
-
-- Média Amostral ($\bar{y}$): 84,90 $\approx$ **85 ativações/dia.**
-- Desvio Padrão ($s$): 33,23 $\approx$ **33 ativações/dia.**
-- Erro Padrão: 6,8  $\approx$ **7 ativações/dia.**
-
 # Sugestão tamanho de amostra
+
+Consideramos para sugestão de tamanho de amostra os critérios:
+
+1. O Nível de Confiança ($Z$):
+   Para uma amostra futura diminuiriamos o valor de $\alpha$ para o tradicional 0.05. Portanto consideramos $Z = 1.96$.
+2. Erro aceitável ($E$):
+   Para um estudo futuro definimos arbitrariamente que queremos um erro máximo de 10.
+
+A partir dessa definição usamos a seguinte fórmula para sugestão:
+
+$$n_0 = \left( \frac{Z \cdot s}{E} \right)^2$$
+
+E o seguinte ajuste para população finita:
+
+$$n_{final} = \frac{n_0}{1 + \frac{n_0}{N}}$$
+
+Portanto:
+
+```{r}
+
+Z <- 1.96
+E <- 10
+s <- sd(df$ativacoes)
+N <- 192
+
+n0      <- ((Z * s) / E)^2
+n_final <- (n0 / (1 + (n0 / N)))
+```
+
+chegando na sugestão de n = `r round(n_final)` para um futuro estudo.
 
 # Considerações finais
 
@@ -141,57 +260,6 @@ As estatísticas descritivas resumidas são:
 - **Erro de entendimento:** Houve a tentativa do grupo de amenizar esse fator disponibilizando no início do questionário um tutorial que possibilitasse direcionar corretamente o respondente.
 
 - **Erro de mensuração:** Aqui considera-se "chutes" e omissões por parte dos respondentes.
-
-
-# Códigos
-
-```{r}
-library(dplyr)
-library(readr)
-library(readxl)
-
-df <- read_xlsx("data/respostas.xlsx")
-
-colnames(df) <- c("ativacoes", "percepcao")
-
-head(df)
-
-n <- nrow(df) # Tamanho da amostra efetiva
-N <- 189      # Tamanho da população
-
-resumo_descritivo <- df %>%
-  summarise(
-    Media = mean(ativacoes),
-    DesvioPadrao = sd(ativacoes),
-    Variancia = var(ativacoes),
-    Minimo = min(ativacoes),
-    Maximo = max(ativacoes),
-    n = n()
-  )
-print(resumo_descritivo)
-
-# Estimador da Média
-media_amostral <- mean(df$ativacoes) ; media_amostral
-
-# Estimador da Variância da Média
-# Var(y_bar) = (1 - n/N) * (s^2 / n)
-var_estimador_media <- (1 - n/N) * ((var(df$ativacoes)) / n) ; var_estimador_media
-
-# Erro Padrão
-erro_padrao <- sqrt(var_estimador_media); erro_padrao
-
-# Intervalo de Confiança (90%)
-# Usando t-student com n-1 graus de liberdade
-alpha <- 0.10 # 10% de significância para 90% de confiança
-t_critico <- qt(1 - alpha/2, df = n - 1)
-
-margem_erro <- t_critico * erro_padrao
-ic_inferior <- media_amostral - margem_erro
-ic_superior <- media_amostral + margem_erro
-
-cat("Margem de Erro (90%):", round(margem_erro, 2), "\n")
-cat("Intervalo de Confiança [90%]: [", round(ic_inferior, 2), ";", round(ic_superior, 2), "]\n")
-```
 
 # Apêndices
 
